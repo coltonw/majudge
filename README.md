@@ -1,21 +1,11 @@
 # Majudge
 
-**TODO: Add description**
+This is a majority judgement algorithm written in Elixir.  It will probably become a very specific majority judgement Phoenix site where my friends can vote 
 
-## Installation
+## Running
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `majudge` to your list of dependencies in `mix.exs`:
+Just run `mix` and then run `iex -S mix` to load the code up in your editor.
 
-```elixir
-def deps do
-  [
-    {:majudge, "~> 0.1.0"}
-  ]
-end
-```
+## Testing
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/majudge](https://hexdocs.pm/majudge).
-
+Run `mix test` to run the unit tests.
