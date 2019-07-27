@@ -4,20 +4,23 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Majudge · Phoenix Framework</title>
+    <title>Majority Judgement Demo</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <link rel="icon" type="image/png" sizes="32x32" href="<%= Routes.static_path(@conn, "/images/favicon-32x32.png") %>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%= Routes.static_path(@conn, "/images/favicon-16x16.png") %>">
   </head>
   <body>
     <header>
       <section class="container">
+        <a href="<%= Routes.page_path(@conn, :index) %>" class="galaxy-logo">
+          <img src="<%= Routes.static_path(@conn, "/images/galaxy.svg") %>" alt="Majority Judgement Logo" />
+        </a>
+        <h1>Majority Judgement</h1>
         <nav role="navigation">
           <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
+            <li><a href="<%= Routes.tally_path(@conn, :index) %>">Tally</a></li>
           </ul>
         </nav>
-        <a href="http://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
-        </a>
       </section>
     </header>
     <main role="main" class="container">
@@ -25,6 +28,11 @@
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
       <%= render @view_module, @view_template, assigns %>
     </main>
+    <footer>
+      <section class="container">
+        Andromeda logo designed by Chanut-is-Industries. <a href="https://www.iconfinder.com/iconsets/space-flat-galaxy-radio">License</a>
+      </section>
+    </footer>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

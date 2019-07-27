@@ -17,6 +17,7 @@ defmodule MajudgeWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/tally", TallyController, :index
   end
 
   # Other scopes may use custom stacks.
