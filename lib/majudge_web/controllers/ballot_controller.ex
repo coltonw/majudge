@@ -6,16 +6,16 @@ defmodule MajudgeWeb.BallotController do
   alias Majudge.Elections
   alias Majudge.Elections.Ballot
 
-  def _candidates_decode(%{"candidates" => nil} = ballot) do
-    ballot
+  def _candidates_decode(%{"candidates" => nil} = ballot_params) do
+    ballot_params
   end
 
-  def _candidates_decode(%{"candidates" => candidates} = ballot) do
-    Map.put(ballot, "candidates", Enum.map(candidates, &Jason.decode!(&1)))
+  def _candidates_decode(%{"candidates" => candidates} = ballot_params) do
+    Map.put(ballot_params, "candidates", Enum.map(candidates, &Jason.decode!(&1)))
   end
 
-  def _candidates_decode(ballot) do
-    ballot
+  def _candidates_decode(ballot_params) do
+    ballot_params
   end
 
   # this assumes you have a struct which came from ecto
@@ -55,6 +55,7 @@ defmodule MajudgeWeb.BallotController do
 
   def edit(conn, %{"id" => id}) do
     ballot = Elections.get_ballot!(id)
+    ballot = _candidates_encode(ballot)
     changeset = Elections.change_ballot(ballot)
     render(conn, "edit.html", ballot: ballot, changeset: changeset)
   end
@@ -62,14 +63,14 @@ defmodule MajudgeWeb.BallotController do
   def update(conn, %{"id" => id, "ballot" => ballot_params}) do
     ballot = Elections.get_ballot!(id)
 
-    case Elections.update_ballot(ballot, ballot_params) do
+    case Elections.update_ballot(ballot, _candidates_decode(ballot_params)) do
       {:ok, ballot} ->
         conn
         |> put_flash(:info, "Ballot updated successfully.")
-        |> redirect(to: Routes.ballot_path(conn, :show, ballot))
+        |> redirect(to: Routes.ballot_path(conn, :show, _candidates_encode(ballot)))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", ballot: ballot, changeset: changeset)
+        render(conn, "edit.html", ballot: _candidates_encode(ballot), changeset: changeset)
     end
   end
 
