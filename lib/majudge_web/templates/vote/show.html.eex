@@ -1,0 +1,23 @@
+<h1>Show Vote</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @vote.name %>
+  </li>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @vote.email %>
+  </li>
+
+  <li>
+    <strong>Vote:</strong>
+    <%= @vote.vote %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.vote_path(@conn, :edit, @vote) %></span>
+<span><%= link "Back", to: Routes.vote_path(@conn, :index) %></span>
