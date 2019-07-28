@@ -11,8 +11,8 @@ defmodule MajudgeWeb.VoteController do
 
   def new(conn, _params) do
     changeset = Elections.change_vote(%Vote{})
-    ballots = Elections.list_ballots()
-    render(conn, "new.html", changeset: changeset, ballots: ballots)
+    ballot = Elections.get_current_ballot!()
+    render(conn, "new.html", changeset: changeset, ballot: ballot)
   end
 
   def create(conn, %{"vote" => vote_params}) do
@@ -23,8 +23,8 @@ defmodule MajudgeWeb.VoteController do
         |> redirect(to: Routes.vote_path(conn, :show, vote))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        ballots = Elections.list_ballots()
-        render(conn, "new.html", changeset: changeset, ballots: ballots)
+        ballot = Elections.get_current_ballot!()
+        render(conn, "new.html", changeset: changeset, ballot: ballot)
     end
   end
 

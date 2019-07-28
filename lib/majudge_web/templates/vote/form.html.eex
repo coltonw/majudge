@@ -13,16 +13,12 @@
   <%= text_input f, :email %>
   <%= error_tag f, :email %>
 
-  <%= label f, :vote %>
-  <%= text_input f, :vote %>
-  <%= error_tag f, :vote %>
-
-  <%= if @changeset.data.ballot_id do %>
-    <%= hidden_input f, :ballot_id %>
-  <% else %>
-    <%= label f, :ballot_id, "Ballot" %>
-    <%= select f, :ballot_id, ballot_options(@ballots) %>
+  <label>Vote</label>
+  <%= for candidate <- @ballot.candidates do %>
+    <%= render("candidate.html", candidate: candidate) %>
   <% end %>
+
+  <%= hidden_input f, :ballot_id, value: @ballot.id %>
   <div>
     <%= submit "Save" %>
   </div>

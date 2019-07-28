@@ -38,6 +38,19 @@ defmodule Majudge.Elections do
   def get_ballot!(id), do: Repo.get!(Ballot, id)
 
   @doc """
+  Gets a the current ballot.
+
+  Raises `Ecto.NoResultsError` if there are no ballots.
+
+  ## Examples
+
+      iex> get_current_ballot!()
+      %Ballot{}
+
+  """
+  def get_current_ballot!(), do: Repo.one!(from b in Ballot, order_by: [desc: :id], limit: 1)
+
+  @doc """
   Creates a ballot.
 
   ## Examples
