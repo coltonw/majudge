@@ -1,0 +1,28 @@
+<h1>Listing Ballots</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Candidates</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for ballot <- @ballots do %>
+    <tr>
+      <td><%= ballot.name %></td>
+      <td><%= ballot.candidates %></td>
+
+      <td>
+        <%= link "Show", to: Routes.ballot_path(@conn, :show, ballot) %>
+        <%= link "Edit", to: Routes.ballot_path(@conn, :edit, ballot) %>
+        <%= link "Delete", to: Routes.ballot_path(@conn, :delete, ballot), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Ballot", to: Routes.ballot_path(@conn, :new) %></span>

@@ -2,10 +2,6 @@ defmodule MajudgeTest do
   use ExUnit.Case
   doctest Majudge
 
-  test "greets the world" do
-    assert Majudge.hello() == :world
-  end
-
   test "comparing ratings" do
     assert Majudge._compare_rating(:excellent, :fair)
     assert not Majudge._compare_rating(:fair, :excellent)

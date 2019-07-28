@@ -10,8 +10,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="<%= Routes.static_path(@conn, "/images/favicon-16x16.png") %>">
   </head>
   <body>
-    <header>
-      <section class="container">
+    <div class="container">
+      <header>
         <a href="<%= Routes.page_path(@conn, :index) %>" class="galaxy-logo">
           <img src="<%= Routes.static_path(@conn, "/images/galaxy.svg") %>" alt="Majority Judgement Logo" />
         </a>
@@ -21,18 +21,16 @@
             <li><a href="<%= Routes.tally_path(@conn, :index) %>">Tally</a></li>
           </ul>
         </nav>
-      </section>
-    </header>
-    <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-      <%= render @view_module, @view_template, assigns %>
-    </main>
-    <footer>
-      <section class="container">
+      </header>
+      <main role="main">
+        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+        <%= render @view_module, @view_template, assigns %>
+      </main>
+      <footer>
         Andromeda logo designed by Chanut-is-Industries. <a href="https://www.iconfinder.com/iconsets/space-flat-galaxy-radio">License</a>
-      </section>
-    </footer>
+      </footer>
+    </div>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

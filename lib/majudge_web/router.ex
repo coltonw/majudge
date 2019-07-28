@@ -18,6 +18,8 @@ defmodule MajudgeWeb.Router do
 
     get "/", PageController, :index
     get "/tally", TallyController, :index
+
+    resources "/ballots", BallotController
   end
 
   # Other scopes may use custom stacks.

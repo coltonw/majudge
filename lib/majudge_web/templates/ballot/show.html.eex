@@ -1,0 +1,18 @@
+<h1>Show Ballot</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @ballot.name %>
+  </li>
+
+  <li>
+    <strong>Candidates:</strong>
+    <%= @ballot.candidates %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.ballot_path(@conn, :edit, @ballot) %></span>
+<span><%= link "Back", to: Routes.ballot_path(@conn, :index) %></span>

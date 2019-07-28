@@ -1,0 +1,5 @@
+<h1>Edit Ballot</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.ballot_path(@conn, :update, @ballot)) %>
+
+<span><%= link "Back", to: Routes.ballot_path(@conn, :index) %></span>
