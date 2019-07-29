@@ -1,1 +1,10 @@
-<%= @candidate["name"] %>
+<label for="<%= @candidate["id"] %>"><%= @candidate["name"] %></label>
+<div class="row rating">
+<%= for {rating, rating_text} <- ratings() do %>
+    <div class="column <%= rating %>">
+        <label for="<%= rating %>-<%= @candidate["id"] %>"><%= rating_text %></label>
+        <input type="radio" value="<%= rating %>"
+            id="<%= rating %>-<%= @candidate["id"] %>" name="rating-<%= @candidate["id"] %>">
+    </div>
+<% end %>
+</div>

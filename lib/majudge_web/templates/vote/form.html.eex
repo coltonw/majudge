@@ -13,13 +13,13 @@
   <%= text_input f, :email %>
   <%= error_tag f, :email %>
 
-  <label>Vote</label>
+  <label>How interested are you in playing each of the following?</label>
   <%= for candidate <- @ballot.candidates do %>
     <%= render("candidate.html", candidate: candidate) %>
   <% end %>
 
   <%= hidden_input f, :ballot_id, value: @ballot.id %>
   <div>
-    <%= submit "Save" %>
+    <%= submit "Vote!" %>
   </div>
 <% end %>
