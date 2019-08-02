@@ -1,3 +1,5 @@
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<div id="app">
 <%= form_for @changeset, @action, fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
@@ -23,3 +25,5 @@
     <%= submit "Vote!" %>
   </div>
 <% end %>
+</div>
+<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/voteForm.js") %>"></script>

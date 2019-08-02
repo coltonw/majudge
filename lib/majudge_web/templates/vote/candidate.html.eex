@@ -1,10 +1,15 @@
-<label for="<%= @candidate["id"] %>"><%= @candidate["name"] %></label>
+<label data-candidate="<%= @candidate["id"] %>" for="<%= @candidate["id"] %>"><%= @candidate["name"] %></label>
 <div class="row rating">
+<div class="column"><img src="<%= @candidate["thumbnail"] %>"></div>
 <%= for {rating, rating_text} <- ratings() do %>
-    <div class="column <%= rating %>">
-        <label for="<%= rating %>-<%= @candidate["id"] %>"><%= rating_text %></label>
-        <input type="radio" value="<%= rating %>"
-            id="<%= rating %>-<%= @candidate["id"] %>" name="rating-<%= @candidate["id"] %>">
+    <% ratingid = "#{rating}-#{@candidate["id"]}" %>
+    <div class="column <%= rating %>" v-bind:class="{ active: rating<%= @candidate["id"] %> == '<%= rating %>' }">
+        <label for="<%= ratingid %>"><%= rating_text %></label>
+        <input type="radio"
+            value="<%= rating %>"
+            id="<%= ratingid %>"
+            name="rating-<%= @candidate["id"] %>"
+            v-model="rating<%= @candidate["id"] %>">
     </div>
 <% end %>
 </div>
