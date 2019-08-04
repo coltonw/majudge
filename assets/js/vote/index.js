@@ -2,4 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import VoteForm from './VoteForm';
 
-ReactDOM.render(<VoteForm candidates={window.phxData} />, document.getElementById('reactVoteForm'));
+const { candidates, currentRatings: startingCurrentRatings } = window.phxData;
+
+ReactDOM.render(<VoteForm candidates={candidates} startingCurrentRatings={startingCurrentRatings} />, document.getElementById('reactVoteForm'));

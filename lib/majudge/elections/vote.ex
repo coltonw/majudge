@@ -15,7 +15,7 @@ defmodule Majudge.Elections.Vote do
   @doc false
   def changeset(vote, attrs) do
     vote
-    |> cast(attrs, [:name, :email, :vote])
-    |> validate_required([:name, :email, :vote])
+    |> cast(attrs, [:name, :email, :vote, :ballot_id])
+    |> validate_required([:name, :email, :vote, :ballot_id])
   end
 end

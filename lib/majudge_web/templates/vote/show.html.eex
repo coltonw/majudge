@@ -14,7 +14,7 @@
 
   <li>
     <strong>Vote:</strong>
-    <%= @vote.vote %>
+    <%= Jason.encode! @vote.vote %>
   </li>
 
 </ul>

@@ -16,7 +16,10 @@
 
   <label>How interested are you in playing each of the following?</label>
   <script>
-    window.phxData = <%= raw Jason.encode! @ballot.candidates %>;
+    window.phxData = {
+      candidates: <%= raw Jason.encode! @ballot.candidates %>,
+      currentRatings: <%= raw Jason.encode! input_value(f, :vote) %>,
+    };
   </script>
   <div id="reactVoteForm">
     <!-- to be filled in by React -->

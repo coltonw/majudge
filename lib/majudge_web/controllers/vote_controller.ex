@@ -1,8 +1,22 @@
 defmodule MajudgeWeb.VoteController do
+  require Logger
+
   use MajudgeWeb, :controller
 
   alias Majudge.Elections
   alias Majudge.Elections.Vote
+
+  def _vote_decode(%{"vote" => nil} = vote_params) do
+    vote_params
+  end
+
+  def _vote_decode(%{"vote" => vote} = vote_params) do
+    Map.put(vote_params, "vote", Jason.decode!(vote))
+  end
+
+  def _vote_decode(vote_params) do
+    vote_params
+  end
 
   def index(conn, _params) do
     votes = Elections.list_votes()
@@ -16,6 +30,7 @@ defmodule MajudgeWeb.VoteController do
   end
 
   def create(conn, %{"vote" => vote_params}) do
+    vote_params = _vote_decode(vote_params)
     case Elections.create_vote(vote_params) do
       {:ok, vote} ->
         conn
@@ -36,10 +51,12 @@ defmodule MajudgeWeb.VoteController do
   def edit(conn, %{"id" => id}) do
     vote = Elections.get_vote!(id)
     changeset = Elections.change_vote(vote)
-    render(conn, "edit.html", vote: vote, changeset: changeset)
+    ballot = Elections.get_ballot!(vote.ballot_id)
+    render(conn, "edit.html", vote: vote, changeset: changeset, ballot: ballot)
   end
 
   def update(conn, %{"id" => id, "vote" => vote_params}) do
+    vote_params = _vote_decode(vote_params)
     vote = Elections.get_vote!(id)
 
     case Elections.update_vote(vote, vote_params) do
@@ -49,7 +66,8 @@ defmodule MajudgeWeb.VoteController do
         |> redirect(to: Routes.vote_path(conn, :show, vote))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", vote: vote, changeset: changeset)
+        ballot = Elections.get_current_ballot!()
+        render(conn, "edit.html", vote: vote, changeset: changeset, ballot: ballot)
     end
   end
 

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import CandidateInterest from './CandidateInterest';
 
-const VoteForm = ({ candidates }) => {
-    const [currentRatings, setCurrentRatings] = useState({});
+const VoteForm = ({ candidates, startingCurrentRatings }) => {
+    console.log(startingCurrentRatings);
+    const [currentRatings, setCurrentRatings] = useState(startingCurrentRatings || {});
 
     const setCurrentRating = (candidateId) => (rating) => {
         setCurrentRatings({
