@@ -66,7 +66,7 @@ defmodule MajudgeWeb.VoteController do
         |> redirect(to: Routes.vote_path(conn, :show, vote))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        ballot = Elections.get_current_ballot!()
+        ballot = Elections.get_ballot!(vote.ballot_id)
         render(conn, "edit.html", vote: vote, changeset: changeset, ballot: ballot)
     end
   end
