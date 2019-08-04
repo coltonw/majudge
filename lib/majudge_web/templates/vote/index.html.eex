@@ -15,7 +15,7 @@
     <tr>
       <td><%= vote.name %></td>
       <td><%= vote.email %></td>
-      <td><%= vote.vote %></td>
+      <td><%= Jason.encode! vote.vote %></td>
 
       <td>
         <%= link "Show", to: Routes.vote_path(@conn, :show, vote) %>
