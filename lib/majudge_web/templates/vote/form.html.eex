@@ -1,4 +1,3 @@
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <div id="app">
 <%= form_for @changeset, @action, fn f -> %>
   <%= if @changeset.action do %>
@@ -16,9 +15,12 @@
   <%= error_tag f, :email %>
 
   <label>How interested are you in playing each of the following?</label>
-  <%= for candidate <- @ballot.candidates do %>
-    <%= render("candidate.html", candidate: candidate) %>
-  <% end %>
+  <script>
+    window.phxData = <%= raw Jason.encode! @ballot.candidates %>;
+  </script>
+  <div id="reactVoteForm">
+    <!-- to be filled in by React -->
+  </div>
 
   <%= hidden_input f, :ballot_id, value: @ballot.id %>
   <div>
@@ -26,4 +28,4 @@
   </div>
 <% end %>
 </div>
-<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/voteForm.js") %>"></script>
+<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vote.js") %>"></script>
