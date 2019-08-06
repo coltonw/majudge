@@ -15,7 +15,7 @@ module.exports = (env, options) => ({
   entry: {
     app: glob.sync('./vendor/**/*.js').concat(['./js/app.js']),
     tally: glob.sync('./vendor/**/*.js').concat(['./js/tally/index.js']),
-    ballotForm: glob.sync('./vendor/**/*.js').concat(['./js/ballotForm.js']),
+    ballot: glob.sync('./vendor/**/*.js').concat(['./js/ballot/index.js']),
     vote: glob.sync('./vendor/**/*.js').concat(['./js/vote/index.js']),
   },
   output: {

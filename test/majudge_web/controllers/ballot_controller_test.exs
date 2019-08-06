@@ -75,6 +75,7 @@ defmodule MajudgeWeb.BallotControllerTest do
     test "deletes chosen ballot", %{conn: conn, ballot: ballot} do
       conn = delete(conn, Routes.ballot_path(conn, :delete, ballot))
       assert redirected_to(conn) == Routes.ballot_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.ballot_path(conn, :show, ballot))
       end

@@ -142,11 +142,24 @@ defmodule Majudge do
     Enum.sort(distances, &_compare/2)
   end
 
+  defmodule Candidate do
+    @derive {Jason.Encoder, only: [:name, :value]}
+    defstruct name: "Unknown", value: [], distance: []
+  end
+
+  def _compare_candidates(%Candidate{distance: a}, %Candidate{distance: b}) do
+    _compare(a, b)
+  end
+
+  def sort_candidates(candidates) do
+    Enum.sort(candidates, &_compare_candidates/2)
+  end
+
   def count_one(vote, outer_acc) do
     Enum.reduce(vote, outer_acc, fn {candId, rating}, acc ->
       candMap = Map.get(acc, candId, %{})
       curCount = Map.get(candMap, rating, 0)
-      %{acc | candId => %{candMap | rating => curCount + 1 }}
+      Map.put(acc, candId, Map.put(candMap, rating, curCount + 1))
     end)
   end
 
@@ -161,6 +174,6 @@ defmodule Majudge do
   end
 
   def count([vote | tail], acc) do
-    count tail, count_one(vote, acc)
+    count(tail, count_one(vote, acc))
   end
 end

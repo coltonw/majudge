@@ -50,7 +50,6 @@ defmodule Majudge.Elections do
   """
   def get_current_ballot!(), do: Repo.one!(from b in Ballot, order_by: [desc: :id], limit: 1)
 
-
   @doc """
   Gets a the current ballot.
 

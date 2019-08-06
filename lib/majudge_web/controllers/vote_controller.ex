@@ -10,6 +10,10 @@ defmodule MajudgeWeb.VoteController do
     vote_params
   end
 
+  def _vote_decode(%{"vote" => %{}} = vote_params) do
+    vote_params
+  end
+
   def _vote_decode(%{"vote" => vote} = vote_params) do
     Map.put(vote_params, "vote", Jason.decode!(vote))
   end
@@ -31,6 +35,7 @@ defmodule MajudgeWeb.VoteController do
 
   def create(conn, %{"vote" => vote_params}) do
     vote_params = _vote_decode(vote_params)
+
     case Elections.create_vote(vote_params) do
       {:ok, vote} ->
         conn

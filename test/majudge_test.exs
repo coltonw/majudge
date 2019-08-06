@@ -49,4 +49,35 @@ defmodule MajudgeTest do
              [fair: 0, average: 3, good: 7, poor: 9]
            ]
   end
+
+  test "sorting a list of candidates" do
+    alias Majudge.Candidate
+
+    assert Majudge.sort_candidates([
+             %Candidate{name: "Abe", value: [fair: 0, average: 3, good: 7, poor: 10]},
+             %Candidate{name: "Beth", value: [excellent: 0, verygood: 6]},
+             %Candidate{name: "Caleb", value: [good: 0, verygood: 1]},
+             %Candidate{name: "Dino", value: [fair: 0, average: 3, good: 7, poor: 9]}
+           ]) == [
+             %Candidate{name: "Beth", value: [excellent: 0, verygood: 6]},
+             %Candidate{name: "Caleb", value: [good: 0, verygood: 1]},
+             %Candidate{name: "Abe", value: [fair: 0, average: 3, good: 7, poor: 10]},
+             %Candidate{name: "Dino", value: [fair: 0, average: 3, good: 7, poor: 9]}
+           ]
+  end
+
+  test "counting up some votes" do
+    assert Majudge.count([%{"1" => :excellent, "2" => :poor}]) == %{
+             "1" => %{excellent: 1},
+             "2" => %{poor: 1}
+           }
+
+    assert Majudge.count([
+             %{"1" => :excellent, "2" => :poor},
+             %{"1" => :excellent, "2" => :verygood}
+           ]) == %{
+             "1" => %{excellent: 2},
+             "2" => %{poor: 1, verygood: 1}
+           }
+  end
 end

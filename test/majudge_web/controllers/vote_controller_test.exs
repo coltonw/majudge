@@ -3,13 +3,39 @@ defmodule MajudgeWeb.VoteControllerTest do
 
   alias Majudge.Elections
 
+  @parent_ballot %{candidates: [], name: "some name"}
+
   @create_attrs %{email: "some email", name: "some name", vote: %{}}
   @update_attrs %{email: "some updated email", name: "some updated name", vote: %{}}
   @invalid_attrs %{email: nil, name: nil, vote: nil}
 
+  def insert_valid_ballot_id(vote, ballot \\ nil)
+
+  def insert_valid_ballot_id(vote, nil) do
+    {:ok, ballot} = Elections.create_ballot(@parent_ballot)
+
+    insert_valid_ballot_id(vote, ballot)
+  end
+
+  def insert_valid_ballot_id(vote, %{id: ballot_id}) do
+    Enum.into(%{ballot_id: ballot_id}, vote)
+  end
+
   def fixture(:vote) do
-    {:ok, vote} = Elections.create_vote(@create_attrs)
+    {:ok, ballot} = Elections.create_ballot(@parent_ballot)
+
+    {:ok, vote} =
+      @create_attrs
+      |> insert_valid_ballot_id()
+      |> Elections.create_vote()
+
     vote
+  end
+
+  def fixture(:ballot) do
+    {:ok, ballot} = Elections.create_ballot(@parent_ballot)
+
+    ballot
   end
 
   describe "index" do
@@ -20,6 +46,8 @@ defmodule MajudgeWeb.VoteControllerTest do
   end
 
   describe "new vote" do
+    setup [:create_ballot]
+
     test "renders form", %{conn: conn} do
       conn = get(conn, Routes.vote_path(conn, :new))
       assert html_response(conn, 200) =~ "New Vote"
@@ -27,8 +55,11 @@ defmodule MajudgeWeb.VoteControllerTest do
   end
 
   describe "create vote" do
-    test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.vote_path(conn, :create), vote: @create_attrs)
+    setup [:create_ballot]
+
+    test "redirects to show when data is valid", %{conn: conn, ballot: ballot} do
+      create_attrs = insert_valid_ballot_id(@create_attrs, ballot)
+      conn = post(conn, Routes.vote_path(conn, :create), vote: create_attrs)
 
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.vote_path(conn, :show, id)
@@ -75,6 +106,7 @@ defmodule MajudgeWeb.VoteControllerTest do
     test "deletes chosen vote", %{conn: conn, vote: vote} do
       conn = delete(conn, Routes.vote_path(conn, :delete, vote))
       assert redirected_to(conn) == Routes.vote_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get(conn, Routes.vote_path(conn, :show, vote))
       end
@@ -84,5 +116,10 @@ defmodule MajudgeWeb.VoteControllerTest do
   defp create_vote(_) do
     vote = fixture(:vote)
     {:ok, vote: vote}
+  end
+
+  defp create_ballot(_) do
+    ballot = fixture(:ballot)
+    {:ok, ballot: ballot}
   end
 end

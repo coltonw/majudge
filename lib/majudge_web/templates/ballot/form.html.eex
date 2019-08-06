@@ -9,13 +9,16 @@
   <%= text_input f, :name %>
   <%= error_tag f, :name %>
 
-  <%= label f, :candidates %>
-  <!-- this should be filled in dynamically by JS -->
-  <%= multiple_select f, :candidates, [] %>
+  <script>
+    window.phxData = {
+      candidates: <%= raw Jason.encode! input_value(f, :candidates) %>,
+    };
+  </script>
+  <div id="reactCandidateSelector"></div>
   <%= error_tag f, :candidates %>
 
   <div>
     <%= submit "Save" %>
   </div>
 <% end %>
-<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/ballotForm.js") %>"></script>
+<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/ballot.js") %>"></script>

@@ -6,8 +6,7 @@ defmodule Majudge.Repo.Migrations.CreateVotes do
       add :name, :string
       add :email, :string
       add :vote, :map
-      add :ballot_id, references(:ballots, on_delete: :delete_all),
-                      null: false
+      add :ballot_id, references(:ballots, on_delete: :delete_all), null: false
 
       timestamps()
     end

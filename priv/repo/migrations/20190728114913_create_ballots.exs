@@ -8,6 +8,5 @@ defmodule Majudge.Repo.Migrations.CreateBallots do
 
       timestamps()
     end
-
   end
 end

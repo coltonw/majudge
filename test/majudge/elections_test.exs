@@ -67,14 +67,23 @@ defmodule Majudge.ElectionsTest do
   describe "votes" do
     alias Majudge.Elections.Vote
 
+    @parent_ballot %{candidates: [], name: "some name"}
+
     @valid_attrs %{email: "some email", name: "some name", vote: %{}}
     @update_attrs %{email: "some updated email", name: "some updated name", vote: %{}}
-    @invalid_attrs %{email: nil, name: nil, vote: nil}
+    @invalid_attrs %{email: nil, name: nil, vote: nil, ballot_id: nil}
+
+    def insert_valid_ballot_id(vote) do
+      {:ok, ballot} = Elections.create_ballot(@parent_ballot)
+
+      Enum.into(%{ballot_id: ballot.id}, vote)
+    end
 
     def vote_fixture(attrs \\ %{}) do
       {:ok, vote} =
         attrs
         |> Enum.into(@valid_attrs)
+        |> insert_valid_ballot_id()
         |> Elections.create_vote()
 
       vote
@@ -91,7 +100,11 @@ defmodule Majudge.ElectionsTest do
     end
 
     test "create_vote/1 with valid data creates a vote" do
-      assert {:ok, %Vote{} = vote} = Elections.create_vote(@valid_attrs)
+      assert {:ok, %Vote{} = vote} =
+               @valid_attrs
+               |> insert_valid_ballot_id
+               |> Elections.create_vote()
+
       assert vote.email == "some email"
       assert vote.name == "some name"
       assert vote.vote == %{}
@@ -103,7 +116,10 @@ defmodule Majudge.ElectionsTest do
 
     test "update_vote/2 with valid data updates the vote" do
       vote = vote_fixture()
-      assert {:ok, %Vote{} = vote} = Elections.update_vote(vote, @update_attrs)
+
+      assert {:ok, %Vote{} = vote} =
+               Elections.update_vote(vote, insert_valid_ballot_id(@update_attrs))
+
       assert vote.email == "some updated email"
       assert vote.name == "some updated name"
       assert vote.vote == %{}

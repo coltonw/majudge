@@ -36,6 +36,7 @@ defmodule MajudgeWeb.BallotController do
 
   def create(conn, %{"ballot" => ballot_params}) do
     ballot_params = _candidates_decode(ballot_params)
+
     case Elections.create_ballot(ballot_params) do
       {:ok, ballot} ->
         conn

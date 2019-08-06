@@ -35,6 +35,7 @@ select {
   &[multiple] {
     height: 12em;
     background: none;
+    resize: both;
   }
 }
 
