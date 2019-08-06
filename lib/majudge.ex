@@ -141,4 +141,26 @@ defmodule Majudge do
   def sort(distances) do
     Enum.sort(distances, &_compare/2)
   end
+
+  def count_one(vote, outer_acc) do
+    Enum.reduce(vote, outer_acc, fn {candId, rating}, acc ->
+      candMap = Map.get(acc, candId, %{})
+      curCount = Map.get(candMap, rating, 0)
+      %{acc | candId => %{candMap | rating => curCount + 1 }}
+    end)
+  end
+
+  def count(votes, acc \\ %{})
+
+  def count(nil, acc) do
+    acc
+  end
+
+  def count([], acc) do
+    acc
+  end
+
+  def count([vote | tail], acc) do
+    count tail, count_one(vote, acc)
+  end
 end

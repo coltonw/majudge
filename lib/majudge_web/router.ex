@@ -21,6 +21,9 @@ defmodule MajudgeWeb.Router do
 
     resources "/ballots", BallotController
     resources "/votes", VoteController
+
+    # may want to add a route like the following eventually
+    # get "/ballots/:id/votes/new", VoteController
   end
 
   # Other scopes may use custom stacks.
