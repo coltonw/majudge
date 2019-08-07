@@ -11,6 +11,8 @@ defmodule MajudgeWeb.TallyController do
         {String.to_existing_atom(rating), rating_count}
       end
 
+    # TODO: This is fragile.  If a ballot gets edited after voting occurs this will likely break.
+    # Needs to be made more resilient.
     name = candMap[id]["name"]
     thumbnail = candMap[id]["thumbnail"]
 

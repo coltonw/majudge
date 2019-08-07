@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 const CandidatesMultiselect = ({ startingSelectedCandidates }) => {
+    // this is fragile because it is dependent on the ordering of keys in JSON data.
+    // TODO: rework this such that values are selected by their bgg id
     const [currentCandidates, setCurrentCandidates] = useState(startingSelectedCandidates || []);
     let storedAllCands = [];
     try {
@@ -9,7 +11,7 @@ const CandidatesMultiselect = ({ startingSelectedCandidates }) => {
     const [allCandidates, setAllCandidates] = useState(storedAllCands);
 
     useEffect(() => {
-        if (!storedAllCands) {
+        if (!storedAllCands.length) {
             (async function () {
                 const bggResults = await fetch('https://www.boardgamegeek.com/xmlapi2/collection?username=dagreenmachine&own=1&excludesubtype=boardgameexpansion');
                 const bggText = await bggResults.text();
@@ -17,9 +19,9 @@ const CandidatesMultiselect = ({ startingSelectedCandidates }) => {
                 const candsSet = {};
                 const cands = Array.from(bggXml.querySelectorAll('item')).flatMap((item) => {
                     const value = {
+                        id: item.getAttribute('objectid'),
                         name: item.querySelector('name').textContent,
                         thumbnail: item.querySelector('thumbnail').textContent,
-                        id: item.getAttribute('objectid'),
                     };
                     if (candsSet[value.id]) return []
                     candsSet[value.id] = true;
