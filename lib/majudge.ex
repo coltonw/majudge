@@ -9,6 +9,11 @@ defmodule Majudge do
 
   @default_ratings [:excellent, :verygood, :good, :average, :fair, :poor]
 
+  defmodule Candidate do
+    @derive {Jason.Encoder, only: [:name, :id, :thumbnail, :value]}
+    defstruct name: "Unknown", id: nil, thumbnail: nil, value: [], distance: []
+  end
+
   # to simplify readability, I will be using the symbols:
   # excellent, verygood, good, average, fair, poor
 
@@ -140,11 +145,6 @@ defmodule Majudge do
 
   def sort(distances) do
     Enum.sort(distances, &_compare/2)
-  end
-
-  defmodule Candidate do
-    @derive {Jason.Encoder, only: [:name, :value]}
-    defstruct name: "Unknown", value: [], distance: []
   end
 
   def _compare_candidates(%Candidate{distance: a}, %Candidate{distance: b}) do

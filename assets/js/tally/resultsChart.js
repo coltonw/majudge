@@ -24,14 +24,19 @@ _.forEach(ranks, function (value, key) {
 });
 
 console.log(window.phxData);
+const data = window.phxData.tally.map((cand) => {
+  const newValue = ranks.map((rating) => (cand.value[rating] || 0))
 
-const data = [
-  { name: 'Will', value: [5, 4, 3, 2, 1, 0] },
-  { name: 'Jeff', value: [4, 5, 3, 2, 1, 0] },
-  { name: 'Don', value: [3, 4, 5, 2, 1, 0] },
-  { name: 'Joe', value: [2, 3, 4, 5, 1, 0] },
-  { name: 'Bill', value: [0, 1, 2, 3, 4, 5] },
-];
+  return { ...cand, value: newValue };
+});
+
+// const data = [
+//   { name: 'Will', value: [5, 4, 3, 2, 1, 0] },
+//   { name: 'Jeff', value: [4, 5, 3, 2, 1, 0] },
+//   { name: 'Don', value: [3, 4, 5, 2, 1, 0] },
+//   { name: 'Joe', value: [2, 3, 4, 5, 1, 0] },
+//   { name: 'Bill', value: [0, 1, 2, 3, 4, 5] },
+// ];
 
 y.domain(data.map(function (d) { return d.name; }));
 x.domain([0, d3.max(data, function (d) { return _.sum(d.value); })]).nice();
