@@ -64,7 +64,8 @@ workflows:
       - test
       - aws-ecr/build-and-push-image:
           context: admin
-          requires: test
+          requires:
+            - test
           account-url: "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
           repo: majudge
           tag: "${CIRCLE_SHA1}"
