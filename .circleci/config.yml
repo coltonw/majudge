@@ -58,7 +58,8 @@ jobs:
           path: _build/test/lib/majudge
 
 workflows:
-  build-and-push-image:
+  version: 2
+  build_and_push_image:
     jobs:
       - test
       - aws-ecr/build-and-push-image:
