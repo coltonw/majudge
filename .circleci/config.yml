@@ -67,4 +67,5 @@ workflows:
           requires:
             - test
           repo: majudge
-          tag: "${CIRCLE_SHA1}"
+          tag: "$CIRCLE_SHA1"
+          extra-build-args: "--build-arg DATABASE_URL=$DATABASE_URL --build-arg SECRET_KEY_BASE=$SECRET_KEY_BASE"
