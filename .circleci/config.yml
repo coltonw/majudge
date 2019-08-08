@@ -76,4 +76,4 @@ workflows:
             - aws-ecr/build-and-push-image
           family: "majudge-service"
           cluster-name: default
-          container-image-name-updates: "container=majudge-service,tag=${CIRCLE_SHA1}"
+          container-image-name-updates: "container=majudge,tag=${CIRCLE_SHA1}"
