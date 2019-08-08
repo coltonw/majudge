@@ -17,7 +17,7 @@ config :majudge, MajudgeWeb.Endpoint,
     cipher_suite: :strong,
     keyfile: System.get_env("SOME_APP_SSL_KEY_PATH"),
     certfile: System.get_env("SOME_APP_SSL_CERT_PATH")
-  ]
+  ],
   force_ssl: [hsts: true],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
