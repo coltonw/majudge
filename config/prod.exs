@@ -10,15 +10,15 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :majudge, MajudgeWeb.Endpoint,
-  url: [host: "judge.willcolton.com", port: 443],
-  https: [
-    :inet6,
-    port: 443,
-    cipher_suite: :strong,
-    keyfile: "/etc/pki/tls/private/judge.pem", # TODO: actually check this
-    certfile: "/etc/pki/tls/certs/judge.crt"
-  ],
-  force_ssl: [hsts: true],
+  url: [host: "judge.willcolton.com", port: 80],
+  # https: [
+  #   :inet6,
+  #   port: 443,
+  #   cipher_suite: :strong,
+  #   keyfile: "/etc/pki/tls/private/judge.pem", # TODO: actually check this
+  #   certfile: "/etc/pki/tls/certs/judge.crt"
+  # ],
+  # force_ssl: [hsts: true],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
