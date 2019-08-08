@@ -49,3 +49,5 @@ RUN chown -R nobody: /app
 USER nobody
 
 ENV HOME=/app
+
+CMD bin/majudge start
