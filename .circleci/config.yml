@@ -1,6 +1,8 @@
-version: 2
+version: 2.1
+orbs:
+  aws-ecr: circleci/aws-ecr@6.2.0
 jobs:
-  build:
+  test:
     parallelism: 1
     docker:
       - image: circleci/elixir:1.9.1
@@ -54,3 +56,14 @@ jobs:
 
       - store_test_results:
           path: _build/test/lib/majudge
+
+workflows:
+  build-and-push-image:
+    jobs:
+      - test
+      - aws-ecr/build-and-push-image:
+          context: admin
+          requires: test
+          account-url: "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+          repo: majudge
+          tag: "${CIRCLE_SHA1}"
