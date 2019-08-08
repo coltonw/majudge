@@ -35,7 +35,6 @@ COPY lib lib
 RUN mix compile
 
 # build release
-COPY rel rel
 RUN mix release
 
 # prepare release image
