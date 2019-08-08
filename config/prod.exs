@@ -15,8 +15,8 @@ config :majudge, MajudgeWeb.Endpoint,
     :inet6,
     port: 443,
     cipher_suite: :strong,
-    keyfile: System.get_env("SOME_APP_SSL_KEY_PATH"),
-    certfile: System.get_env("SOME_APP_SSL_CERT_PATH")
+    keyfile: "/etc/pki/tls/private/judge.pem", # TODO: actually check this
+    certfile: "/etc/pki/tls/certs/judge.crt"
   ],
   force_ssl: [hsts: true],
   cache_static_manifest: "priv/static/cache_manifest.json"
