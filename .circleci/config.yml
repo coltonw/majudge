@@ -1,7 +1,7 @@
 version: 2.1
-orbs:
-  aws-ecr: circleci/aws-ecr@6.2.0
-  aws-ecs: circleci/aws-ecs@0.0.11
+# orbs:
+#   aws-ecr: circleci/aws-ecr@6.2.0
+#   aws-ecs: circleci/aws-ecs@0.0.11
 jobs:
   test:
     parallelism: 1
@@ -57,23 +57,22 @@ jobs:
 
       - store_test_results:
           path: _build/test/lib/majudge
-
-workflows:
-  version: 2
-  build-and-deploy:
-    jobs:
-      - test
-      - aws-ecr/build-and-push-image:
-          context: admin
-          requires:
-            - test
-          repo: majudge
-          tag: "${CIRCLE_SHA1}"
-          extra-build-args: "--build-arg DATABASE_URL=${DATABASE_URL} --build-arg SECRET_KEY_BASE=${SECRET_KEY_BASE}"
-      - aws-ecs/deploy-service-update:
-          context: admin
-          requires:
-            - aws-ecr/build-and-push-image
-          family: "majudge-service"
-          cluster-name: default
-          container-image-name-updates: "container=majudge,tag=${CIRCLE_SHA1}"
+# workflows:
+#   version: 2
+#   build-and-deploy:
+#     jobs:
+#       - test
+#       - aws-ecr/build-and-push-image:
+#           context: admin
+#           requires:
+#             - test
+#           repo: majudge
+#           tag: "${CIRCLE_SHA1}"
+#           extra-build-args: "--build-arg DATABASE_URL=${DATABASE_URL} --build-arg SECRET_KEY_BASE=${SECRET_KEY_BASE}"
+#       - aws-ecs/deploy-service-update:
+#           context: admin
+#           requires:
+#             - aws-ecr/build-and-push-image
+#           family: "majudge-service"
+#           cluster-name: default
+#           container-image-name-updates: "container=majudge,tag=${CIRCLE_SHA1}"
