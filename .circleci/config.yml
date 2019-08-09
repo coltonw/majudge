@@ -57,8 +57,11 @@ jobs:
 
       - store_test_results:
           path: _build/test/lib/majudge
-# workflows:
-#   version: 2
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
 #   build-and-deploy:
 #     jobs:
 #       - test
