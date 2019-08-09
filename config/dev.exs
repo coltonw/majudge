@@ -2,11 +2,10 @@ use Mix.Config
 
 # Configure your database
 config :majudge, Majudge.Repo,
-  url: "ecto://postgres:1iecge36b9a1aLRh9hze@majudge-postgres-1.ceergmb0zz0g.us-east-1.rds.amazonaws.com:5432/majudge-postgres-1",
-  # username: "postgres",
-  # password: "postgres",
-  # database: "majudge_dev",
-  # hostname: "localhost",
+  username: "postgres",
+  password: "postgres",
+  database: "majudge_dev",
+  hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
