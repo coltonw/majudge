@@ -11,6 +11,7 @@ use Mix.Config
 # before starting your production server.
 config :majudge, MajudgeWeb.Endpoint,
   url: [host: "judge.willcolton.com", port: 80],
+  http: [port: 80]
   # https: [
   #   :inet6,
   #   port: 443,
