@@ -26,7 +26,7 @@ defmodule MajudgeWeb.VoteControllerTest do
 
     {:ok, vote} =
       @create_attrs
-      |> insert_valid_ballot_id()
+      |> insert_valid_ballot_id(ballot)
       |> Elections.create_vote()
 
     vote
@@ -57,15 +57,12 @@ defmodule MajudgeWeb.VoteControllerTest do
   describe "create vote" do
     setup [:create_ballot]
 
-    test "redirects to show when data is valid", %{conn: conn, ballot: ballot} do
+    test "redirects to tally once data is valid", %{conn: conn, ballot: ballot} do
       create_attrs = insert_valid_ballot_id(@create_attrs, ballot)
       conn = post(conn, Routes.vote_path(conn, :create), vote: create_attrs)
 
-      assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.vote_path(conn, :show, id)
-
-      conn = get(conn, Routes.vote_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show Vote"
+      assert %{} = redirected_params(conn)
+      assert redirected_to(conn) == Routes.tally_path(conn, :index)
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
