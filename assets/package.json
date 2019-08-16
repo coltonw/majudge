@@ -7,7 +7,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged && mix format"
+      "pre-commit": "pretty-quick --staged && cd .. && mix format"
     }
   },
   "dependencies": {
