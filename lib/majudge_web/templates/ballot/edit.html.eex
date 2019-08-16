@@ -1,5 +1,7 @@
-<h1>Edit Ballot</h1>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Edit Ballot</h1>
 
-<%= render "form.html", Map.put(assigns, :action, Routes.ballot_path(@conn, :update, @ballot)) %>
-
-<span><%= link "Back", to: Routes.ballot_path(@conn, :index) %></span>
+    <%= render "form.html", Map.put(assigns, :action, Routes.ballot_path(@conn, :update, @ballot)) %>
+  </div>
+</section>

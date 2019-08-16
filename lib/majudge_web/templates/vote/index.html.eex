@@ -1,30 +1,37 @@
-<h1>Listing Votes</h1>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Listing Votes</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Vote</th>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Vote</th>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for vote <- @votes do %>
-    <tr>
-      <td><%= vote.name %></td>
-      <td><%= vote.email %></td>
-      <td><%= Jason.encode! vote.vote %></td>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%= for vote <- @votes do %>
+        <tr>
+          <td><%= vote.name %></td>
+          <td><%= vote.email %></td>
+          <td><%= Jason.encode! vote.vote %></td>
 
-      <td>
-        <%= link "Show", to: Routes.vote_path(@conn, :show, vote) %>
-        <%= link "Edit", to: Routes.vote_path(@conn, :edit, vote) %>
-        <%= link "Delete", to: Routes.vote_path(@conn, :delete, vote), method: :delete, data: [confirm: "Are you sure?"] %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+          <td>
+            <div class="buttons">
+              <%= link "Show", to: Routes.vote_path(@conn, :show, vote), class: "button is-primary is-outlined" %>
+              <%= link "Edit", to: Routes.vote_path(@conn, :edit, vote), class: "button is-primary is-outlined" %>
+              <%= link "Delete", to: Routes.vote_path(@conn, :delete, vote), method: :delete, data: [confirm: "Are you sure?"], class: "button is-primary is-outlined" %>
+            </div>
+          </td>
+        </tr>
+    <% end %>
+      </tbody>
+    </table>
 
-<span><%= link "New Vote", to: Routes.vote_path(@conn, :new) %></span>
+    <span><%= link "New Vote", to: Routes.vote_path(@conn, :new), class: "button is-primary" %></span>
+
+  </div>
+</section>

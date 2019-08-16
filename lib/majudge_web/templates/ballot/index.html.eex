@@ -1,28 +1,35 @@
-<h1>Listing Ballots</h1>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Listing Ballots</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Candidates</th>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Candidates</th>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for ballot <- @ballots do %>
-    <tr>
-      <td><%= ballot.name %></td>
-      <td><%= ballot.candidates %></td>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+    <%= for ballot <- @ballots do %>
+        <tr>
+          <td><%= ballot.name %></td>
+          <td><%= ballot.candidates %></td>
 
-      <td>
-        <%= link "Show", to: Routes.ballot_path(@conn, :show, ballot) %>
-        <%= link "Edit", to: Routes.ballot_path(@conn, :edit, ballot) %>
-        <%= link "Delete", to: Routes.ballot_path(@conn, :delete, ballot), method: :delete, data: [confirm: "Are you sure?"] %>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
+          <td>
+            <div class="buttons">
+              <%= link "Show", to: Routes.ballot_path(@conn, :show, ballot), class: "button is-primary is-outlined" %>
+              <%= link "Edit", to: Routes.ballot_path(@conn, :edit, ballot), class: "button is-primary is-outlined" %>
+              <%= link "Delete", to: Routes.ballot_path(@conn, :delete, ballot), method: :delete, data: [confirm: "Are you sure?"], class: "button is-primary is-outlined" %>
+            </div>
+          </td>
+        </tr>
+    <% end %>
+      </tbody>
+    </table>
 
-<span><%= link "New Ballot", to: Routes.ballot_path(@conn, :new) %></span>
+    <span><%= link "New Ballot", to: Routes.ballot_path(@conn, :new), class: "button is-primary" %></span>
+
+  </div>
+</section>

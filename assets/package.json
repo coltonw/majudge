@@ -13,7 +13,9 @@
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
+    "@fortawesome/fontawesome-free": "^5.10.1",
     "@nivo/bar": "^0.59.2",
+    "bulma": "^0.7.5",
     "classnames": "^2.2.6",
     "phoenix": "file:../deps/phoenix",
     "phoenix_html": "file:../deps/phoenix_html",
@@ -27,6 +29,7 @@
     "babel-loader": "^8.0.6",
     "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^3.2.0",
+    "file-loader": "^4.2.0",
     "husky": "^3.0.2",
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.12.0",

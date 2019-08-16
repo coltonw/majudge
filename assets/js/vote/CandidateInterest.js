@@ -6,7 +6,8 @@ const CandidateInterest = ({
   candidateName,
   thumbnail,
   currentRating,
-  setCurrentRating
+  setCurrentRating,
+  disabled
 }) => {
   const ratings = {
     excellent: "Extremely Interested",
@@ -18,9 +19,11 @@ const CandidateInterest = ({
   };
 
   return (
-    <>
-      <label data-candidate={candidateId}>{candidateName}</label>
-      <div className="row rating">
+    <div className="field">
+      <label className="label" data-candidate={candidateId}>
+        {candidateName}
+      </label>
+      <div className="columns rating">
         <div className="column">
           <img src={thumbnail} />
         </div>
@@ -34,17 +37,21 @@ const CandidateInterest = ({
             >
               <span />
               <label>{ratings[rating]}</label>
-              <input
-                type="radio"
-                name={`rating-${candidateId}`}
-                onChange={() => setCurrentRating(rating)}
-                checked={active}
-              />
+              {disabled ? (
+                <span />
+              ) : (
+                <input
+                  type="radio"
+                  name={`rating-${candidateId}`}
+                  onChange={() => setCurrentRating(rating)}
+                  checked={active}
+                />
+              )}
             </div>
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 

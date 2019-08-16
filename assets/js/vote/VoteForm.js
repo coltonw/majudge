@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CandidateInterest from "./CandidateInterest";
 
-const VoteForm = ({ candidates, startingCurrentRatings }) => {
+const VoteForm = ({ candidates, startingCurrentRatings, disabled }) => {
   console.log(startingCurrentRatings);
   const [currentRatings, setCurrentRatings] = useState(
     startingCurrentRatings || {}
@@ -15,11 +15,13 @@ const VoteForm = ({ candidates, startingCurrentRatings }) => {
   };
   return (
     <>
-      <input
-        type="hidden"
-        name="vote[vote]"
-        value={JSON.stringify(currentRatings)}
-      />
+      {!disabled ? (
+        <input
+          type="hidden"
+          name="vote[vote]"
+          value={JSON.stringify(currentRatings)}
+        />
+      ) : null}
       {candidates.map(({ id, name, thumbnail }) => {
         return (
           <CandidateInterest
@@ -28,7 +30,8 @@ const VoteForm = ({ candidates, startingCurrentRatings }) => {
             candidateName={name}
             thumbnail={thumbnail}
             currentRating={currentRatings[id]}
-            setCurrentRating={setCurrentRating(id)}
+            setCurrentRating={disabled ? () => {} : setCurrentRating(id)}
+            disabled={disabled}
           />
         );
       })}

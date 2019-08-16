@@ -1,9 +1,22 @@
-<script>
-  window.phxData = {
-    tally: <%= raw Jason.encode! @tally %>,
-  };
-</script>
-<div id="reactTallyChart" style="height: <%= length(@tally) * 70 %>px;">
-  <!-- to be filld in by JavaScript -->
-</div>
-<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/tally.js") %>"></script>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Current Tally</h1>
+    <div class="tally-arrow has-text-centered">
+      <span class="icon is-medium">
+        <i class="fas fa-arrow-down fa-2x"></i>
+      </span>
+    </div>
+    <script>
+      window.phxData = {
+        tally: <%= raw Jason.encode! @tally %>,
+      };
+    </script>
+    <div id="reactTallyChart" style="height: <%= length(@tally) * 70 %>px;">
+      <!-- to be filld in by JavaScript -->
+    </div>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/tally.js") %>"></script>
+
+    <br>
+    <h1 class="title has-text-centered"><%= List.first(@tally).name %> is the winner!</h1>
+  </div>
+</section>

@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import CandidatesMultiselect from "./CandidatesMultiselect";
 
-const { candidates: startingSelectedCandidates } = window.phxData;
+const { candidates: startingSelectedCandidates, error } = window.phxData;
 
 ReactDOM.render(
   <CandidatesMultiselect

@@ -1,23 +1,42 @@
-<h1>Show Vote</h1>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Show Vote</h1>
 
-<ul>
+    <ul>
 
-  <li>
-    <strong>Name:</strong>
-    <%= @vote.name %>
-  </li>
+      <li>
+        <strong>Name:</strong>
+        <%= @vote.name %>
+      </li>
 
-  <li>
-    <strong>Email:</strong>
-    <%= @vote.email %>
-  </li>
+      <li>
+        <strong>Email:</strong>
+        <%= @vote.email %>
+      </li>
 
-  <li>
-    <strong>Vote:</strong>
-    <%= Jason.encode! @vote.vote %>
-  </li>
+      <li>
+        <strong>Vote Raw:</strong>
+        <%= Jason.encode! @vote.vote %>
+      </li>
+    </ul>
+    <br>
+    <script>
+      window.phxData = {
+        candidates: <%= raw Jason.encode! @ballot.candidates %>,
+        currentRatings: <%= raw Jason.encode! @vote.vote %>,
+        disabled: true,
+      };
+    </script>
+    <div id="reactVoteForm">
+      <!-- to be filled in by React -->
+    </div>
 
-</ul>
 
-<span><%= link "Edit", to: Routes.vote_path(@conn, :edit, @vote) %></span>
-<span><%= link "Back", to: Routes.vote_path(@conn, :index) %></span>
+    <br>
+    <div class="buttons">
+      <%= link "Edit", to: Routes.vote_path(@conn, :edit, @vote), class: "button is-primary" %>
+      <%= link "Back", to: Routes.vote_path(@conn, :index), class: "button" %>
+    </div>
+  </div>
+</section>
+<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/vote.js") %>"></script>

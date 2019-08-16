@@ -43,33 +43,30 @@ const CandidatesMultiselect = ({ startingSelectedCandidates }) => {
   }, []);
 
   return (
-    <>
-      <label htmlFor="ballot_candidates">Candidates</label>
-      <select
-        id="ballot_candidates"
-        multiple
-        name="ballot[candidates][]"
-        value={currentCandidates}
-        onChange={e => {
-          const options = Array.from(e.target.options);
-          const values = options.flatMap(option => {
-            if (option.selected) {
-              return [option.value];
-            }
-            return [];
-          });
-          setCurrentCandidates(values);
-        }}
-      >
-        {allCandidates.map(({ name, value }) => {
-          return (
-            <option key={value} value={value}>
-              {name}
-            </option>
-          );
-        })}
-      </select>
-    </>
+    <select
+      id="ballot_candidates"
+      multiple
+      name="ballot[candidates][]"
+      value={currentCandidates}
+      onChange={e => {
+        const options = Array.from(e.target.options);
+        const values = options.flatMap(option => {
+          if (option.selected) {
+            return [option.value];
+          }
+          return [];
+        });
+        setCurrentCandidates(values);
+      }}
+    >
+      {allCandidates.map(({ name, value }) => {
+        return (
+          <option key={value} value={value}>
+            {name}
+          </option>
+        );
+      })}
+    </select>
   );
 };
 

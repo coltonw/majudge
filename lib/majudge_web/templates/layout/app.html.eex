@@ -1,36 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <head><meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Majority Judgement Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Majority Judgement - Board game night done right</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <link rel="icon" type="image/png" sizes="32x32" href="<%= Routes.static_path(@conn, "/images/favicon-32x32.png") %>">
     <link rel="icon" type="image/png" sizes="16x16" href="<%= Routes.static_path(@conn, "/images/favicon-16x16.png") %>">
   </head>
   <body>
-    <div class="container">
-      <header>
-        <a href="<%= Routes.page_path(@conn, :index) %>" class="galaxy-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/galaxy.svg") %>" alt="Majority Judgement Logo" />
-        </a>
-        <h1>Majority Judgement</h1>
-        <nav role="navigation">
-          <ul>
-            <li><a href="<%= Routes.tally_path(@conn, :index) %>">Tally</a></li>
-          </ul>
-        </nav>
-      </header>
-      <main role="main">
-        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-        <%= render @view_module, @view_template, assigns %>
-      </main>
-      <footer>
+    <nav class="navbar is-light" role="navigation" aria-label="main navigation">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="<%= Routes.page_path(@conn, :index) %>">
+            <img class="logo" src="<%= Routes.static_path(@conn, "/images/galaxy.svg") %>" width="28" height="28" alt="Majority Judgement Logo">
+            <h4 class="title is-4 is-italic">Majority Judgement</h4>
+          </a>
+
+          <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="appNavBar">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div id="appNavBar" class="navbar-menu">
+          <div class="navbar-end">
+            <a class="navbar-item" href="<%= Routes.tally_path(@conn, :index) %>">
+              <span class="icon"><i class="fas fa-poll-h"></i></span>
+              <span>Tally</span>
+            </a>
+
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class="navbar-link">
+                <span class="icon"><i class="fas fa-user-tie"></i></span>
+                <span>Admin</span>
+              </a>
+
+              <div class="navbar-dropdown">
+                <a class="navbar-item" href="<%= Routes.ballot_path(@conn, :index) %>">
+                  <span class="icon"><i class="fas fa-person-booth"></i></span>
+                  <span>Ballots</span>
+                </a>
+                <a class="navbar-item" href="<%= Routes.vote_path(@conn, :index) %>">
+                  <span class="icon"><i class="fas fa-vote-yea"></i></span>
+                  <span>Votes</span>
+                </a>
+                <a class="navbar-item" href="https://github.com/coltonw/majudge">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Repo</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <%= if get_flash(@conn, :info) || get_flash(@conn, :error) do %>
+    <section class="section flash-section">
+      <div class="container">
+        <%= if get_flash(@conn, :info) do %>
+          <div class="notification is-info">
+            <button class="delete"></button>
+            <%= get_flash(@conn, :info) %>
+          </div>
+        <% end %>
+        <%= if get_flash(@conn, :error) do %>
+          <div class="notification is-danger">
+            <button class="delete"></button>
+            <%= get_flash(@conn, :error) %>
+          </div>
+        <% end %>
+      </div>
+    </section>
+    <% end %>
+    <%= render @view_module, @view_template, assigns %>
+    <footer class="footer">
+      <div class="content has-text-centered">
         Andromeda logo designed by Chanut-is-Industries. <a href="https://www.iconfinder.com/iconsets/space-flat-galaxy-radio">License</a>
-      </footer>
-    </div>
+      </div>
+    </footer>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

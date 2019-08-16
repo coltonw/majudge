@@ -1,18 +1,25 @@
-<h1>Show Ballot</h1>
+<section class="section">
+  <div class="container">
+    <h3 class="title">Show Ballot</h3>
 
-<ul>
+    <ul>
 
-  <li>
-    <strong>Name:</strong>
-    <%= @ballot.name %>
-  </li>
+      <li>
+        <strong>Name:</strong>
+        <%= @ballot.name %>
+      </li>
 
-  <li>
-    <strong>Candidates:</strong>
-    <%= @ballot.candidates %>
-  </li>
+      <li>
+        <strong>Candidates:</strong>
+        <%= @ballot.candidates %>
+      </li>
 
-</ul>
+    </ul>
 
-<span><%= link "Edit", to: Routes.ballot_path(@conn, :edit, @ballot) %></span>
-<span><%= link "Back", to: Routes.ballot_path(@conn, :index) %></span>
+    <br>
+    <div class="buttons">
+      <%= link "Edit", to: Routes.ballot_path(@conn, :edit, @ballot), class: "button is-primary" %>
+      <%= link "Back", to: Routes.ballot_path(@conn, :index), class: "button" %>
+    </div>
+  </div>
+</section>

@@ -37,10 +37,10 @@ defmodule MajudgeWeb.VoteController do
     vote_params = _vote_decode(vote_params)
 
     case Elections.create_vote(vote_params) do
-      {:ok, vote} ->
+      {:ok, _} ->
         conn
         |> put_flash(:info, "Vote created successfully.")
-        |> redirect(to: Routes.vote_path(conn, :show, vote))
+        |> redirect(to: Routes.tally_path(conn, :index))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         ballot = Elections.get_current_ballot!()
@@ -50,7 +50,8 @@ defmodule MajudgeWeb.VoteController do
 
   def show(conn, %{"id" => id}) do
     vote = Elections.get_vote!(id)
-    render(conn, "show.html", vote: vote)
+    ballot = Elections.get_ballot!(vote.ballot_id)
+    render(conn, "show.html", vote: vote, ballot: ballot)
   end
 
   def edit(conn, %{"id" => id}) do

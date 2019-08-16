@@ -1,20 +1,32 @@
-<div id="app">
 <%= form_for @changeset, @action, fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+  <div class="columns">
+    <div class="column is-three-fifths">
+      <%= if @changeset.action do %>
+        <div class="notification is-danger">
+          <button class="delete"></button>
+          Oops, something went wrong! Please check the errors below.
+        </div>
+      <% end %>
+
+      <div class="field">
+        <%= label f, :name, class: "label" %>
+        <div class="control">
+          <%= text_input f, :name, class: "input #{if Keyword.has_key?(f.errors, :name), do: "is-danger"}" %>
+        </div>
+        <%= error_tag f, :name %>
+      </div>
+
+      <div class="field">
+        <%= label f, :email, class: "label" %>
+        <div class="control">
+          <%= text_input f, :email, class: "input #{if Keyword.has_key?(f.errors, :email), do: "is-danger"}" %>
+        </div>
+        <%= error_tag f, :email %>
+      </div>
     </div>
-  <% end %>
+  </div>
 
-  <%= label f, :name %>
-  <%= text_input f, :name %>
-  <%= error_tag f, :name %>
-
-  <%= label f, :email %>
-  <%= text_input f, :email %>
-  <%= error_tag f, :email %>
-
-  <label>How interested are you in playing each of the following?</label>
+  <label class="label">How interested are you in playing each of the following?</label>
   <script>
     window.phxData = {
       candidates: <%= raw Jason.encode! @ballot.candidates %>,
@@ -26,8 +38,14 @@
   </div>
 
   <%= hidden_input f, :ballot_id, value: @ballot.id %>
-  <div>
-    <%= submit "Vote!" %>
+
+  <div class="field is-grouped">
+    <div class="control">
+      <%= submit "Vote!", class: "button is-primary" %>
+    </div>
+    <div class="control">
+      <%= link "Back", to: Routes.vote_path(@conn, :index), class: "button" %>
+    </div>
   </div>
 <% end %>
 </div>

@@ -1,24 +1,47 @@
-<%= form_for @changeset, @action, fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
-    </div>
-  <% end %>
+<div class="columns">
+  <div class="column is-three-fifths">
+    <%= form_for @changeset, @action, fn f -> %>
+      <%= if @changeset.action do %>
+        <div class="notification is-danger">
+          <button class="delete"></button>
+          Oops, something went wrong! Please check the errors below.
+        </div>
+      <% end %>
 
-  <%= label f, :name %>
-  <%= text_input f, :name %>
-  <%= error_tag f, :name %>
+      <div class="field">
+        <%= label f, :name, class: "label" %>
+        <div class="control">
+          <%= text_input f, :name, class: "input #{if Keyword.has_key?(f.errors, :name), do: "is-danger"}" %>
+        </div>
+        <%= error_tag f, :name %>
+      </div>
 
-  <script>
-    window.phxData = {
-      candidates: <%= raw Jason.encode! input_value(f, :candidates) %>,
-    };
-  </script>
-  <div id="reactCandidateSelector"></div>
-  <%= error_tag f, :candidates %>
+      <script>
+        window.phxData = {
+          candidates: <%= raw Jason.encode! input_value(f, :candidates) %>,
+          error: <%= Keyword.has_key?(f.errors, :candidates) %>
+        };
+      </script>
+      <div class="field">
+        <label class="label" for="ballot_candidates">
+          Candidates
+        </label>
+        <div class="control">
+          <div id="reactCandidateSelector" class="select is-multiple <%= if Keyword.has_key?(f.errors, :candidates), do: "is-danger" %>"></div>
+        </div>
+        <%= error_tag f, :candidates %>
+      </div>
 
-  <div>
-    <%= submit "Save" %>
+      <div class="field is-grouped">
+        <div class="control">
+          <%= submit "Save", class: "button is-primary" %>
+        </div>
+        <div class="control">
+          <%= link "Back", to: Routes.ballot_path(@conn, :index), class: "button" %>
+        </div>
+      </div>
+
+    <% end %>
+    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/ballot.js") %>"></script>
   </div>
-<% end %>
-<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/ballot.js") %>"></script>
+</div>

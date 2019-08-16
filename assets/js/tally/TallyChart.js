@@ -14,7 +14,7 @@ const TallyChart = ({ tally }) => {
       data={data}
       keys={["excellent", "verygood", "good", "average", "fair", "poor"]}
       indexBy="name"
-      margin={{ right: 60, left: 120 }}
+      margin={{ right: 120, left: 120 }}
       padding={0.3}
       layout="horizontal"
       colors={[

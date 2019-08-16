@@ -1,5 +1,48 @@
-<section>
-  <p>This will be a replacement for my ancient
-  <a href="http://boardgamevote.herokuapp.com/">Indifference Engine</a>
-  board game night voting app</p>
+<section class="hero is-info">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        Board game night done right.
+      </h1>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-three-quarters">
+        <p class="subtitle">Vote on the latest ballot!</p>
+        <a class="button is-large is-primary" href="<%= Routes.vote_path(@conn, :new) %>">
+          <span class="icon is-medium">
+            <i class="fas fa-check-square fa-lg"></i>
+          </span>
+          <span>Vote!</span>
+        </a>
+      </div>
+      <div class="column">
+        <div class="box">
+          <h2 class=subtitle>
+            <span class="icon">
+              <i class="fas fa-address-card"></i>
+            </span>
+            About
+          </h2>
+          <div class="content">
+            <p>
+              This site uses the
+              <a href="https://en.wikipedia.org/wiki/Majority_judgment">
+                majority judgement
+              </a>
+              voting algorithm.
+            </p>
+            <p>
+              This is a replacement for my ancient
+              <a href="http://boardgamevote.herokuapp.com/">Indifference Engine</a>
+              board game night voting site. Yes I am aware all the images are broken on that site.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
