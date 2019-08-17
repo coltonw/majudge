@@ -22,6 +22,7 @@ module.exports = (env, options) => ({
     filename: "[name].js",
     path: path.resolve(__dirname, "../priv/static/js")
   },
+  devtool: "source-map",
   module: {
     rules: [
       {

@@ -9,6 +9,9 @@ const CandidatesMultiselect = ({ startingSelectedCandidates }) => {
   let storedAllCands = [];
   try {
     storedAllCands = JSON.parse(localStorage.getItem("cands"));
+    if (!Array.isArray(storedAllCands)) {
+      storedAllCands = [];
+    }
   } catch (e) {}
   const [allCandidates, setAllCandidates] = useState(storedAllCands);
 
