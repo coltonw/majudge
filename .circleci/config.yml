@@ -66,6 +66,10 @@ workflows:
           context: admin
           requires:
             - test
+          filters:
+            branches:
+              only:
+                - master
           repo: majudge
           tag: "${CIRCLE_SHA1}"
           extra-build-args: "--build-arg DATABASE_URL=${DATABASE_URL} --build-arg SECRET_KEY_BASE=${SECRET_KEY_BASE}"
@@ -73,6 +77,10 @@ workflows:
           context: admin
           requires:
             - aws-ecr/build-and-push-image
+          filters:
+            branches:
+              only:
+                - master
           family: "majudge-service"
           cluster-name: default
           container-image-name-updates: "container=majudge,tag=${CIRCLE_SHA1}"
