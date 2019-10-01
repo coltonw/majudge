@@ -9,7 +9,11 @@ defmodule Majudge.Application do
     # List all child processes to be supervised
     children = [
       # Start the Ecto repository
-      Majudge.Repo,
+      # Majudge.Repo,
+      # DynamicSupervisor which runs AWS related tasks
+      {DynamicSupervisor, name: Majudge.SleepRDSSupervisor, strategy: :one_for_one},
+      # KeepAlive task which keeps RDS alive when needed then puts it to sleep when not
+      Majudge.SleepRDS.KeepAlive,
       # Start the endpoint when the application starts
       MajudgeWeb.Endpoint
       # Starts a worker by calling: Majudge.Worker.start_link(arg)

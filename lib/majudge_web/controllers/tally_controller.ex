@@ -26,6 +26,7 @@ defmodule MajudgeWeb.TallyController do
   end
 
   def index(conn, _params) do
+    Majudge.SleepRDS.stop_db()
     ballot = Elections.get_current_ballot_votes!()
 
     candMap = for candidate <- ballot.candidates, into: %{}, do: {candidate["id"], candidate}
