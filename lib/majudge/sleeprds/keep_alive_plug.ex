@@ -4,7 +4,7 @@ defmodule Majudge.SleepRDS.KeepAlivePlug do
   def init(opts), do: opts
 
   def call(conn, _opts) do
-    KeepAlive.ping
+    KeepAlive.ping()
     conn
   end
 end
