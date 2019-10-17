@@ -6,6 +6,18 @@ defmodule Majudge.SleepRDS.StopDB do
   end
 
   def run() do
-    # ExAws...
+    query_params = %{
+      Action: "StopDBInstance",
+      DBInstanceIdentifier: "majudge-db-1",
+      Version: "2014-10-31"
+    }
+
+    operation = %ExAws.Operation.Query{
+      path: "/",
+      params: query_params,
+      service: :rds
+    }
+
+    ExAws.request(operation)
   end
 end
