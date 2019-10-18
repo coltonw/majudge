@@ -24,7 +24,10 @@ defmodule Majudge.SleepRDS.StartDB do
         Logger.info("Started AWS RDS")
 
       {:error, {_err_name, _err_code, resp}} ->
-        Logger.error(resp.body)
+        # ignore errors where RDS is already started
+        unless resp.body =~ "InvalidDBInstanceState" do
+          Logger.error(resp.body)
+        end
     end
   end
 end

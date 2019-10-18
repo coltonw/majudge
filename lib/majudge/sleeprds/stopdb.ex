@@ -24,7 +24,10 @@ defmodule Majudge.SleepRDS.StopDB do
         Logger.info("Stopped AWS RDS")
 
       {:error, {_err_name, _err_code, resp}} ->
-        Logger.error(resp.body)
+        # ignore errors where RDS is already stopped
+        unless resp.body =~ "InvalidDBInstanceState" do
+          Logger.error(resp.body)
+        end
     end
   end
 end

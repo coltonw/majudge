@@ -10,6 +10,11 @@ defmodule MajudgeWeb.Router do
     plug Majudge.SleepRDS.KeepAlivePlug
   end
 
+  pipeline :status do
+    plug :accepts, ["html"]
+    plug :put_secure_browser_headers
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -18,7 +23,6 @@ defmodule MajudgeWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    get "/status", StatusController, :index
     get "/tally", TallyController, :index
 
     resources "/ballots", BallotController
@@ -26,6 +30,12 @@ defmodule MajudgeWeb.Router do
 
     # may want to add a route like the following eventually
     # get "/ballots/:id/votes/new", VoteController
+  end
+
+  scope "/", MajudgeWeb do
+    pipe_through :status
+
+    get "/status", StatusController, :index
   end
 
   # Other scopes may use custom stacks.
