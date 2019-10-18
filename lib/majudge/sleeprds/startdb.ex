@@ -1,4 +1,5 @@
 defmodule Majudge.SleepRDS.StartDB do
+  require Logger
   use Task
 
   def start_link(_arg) do
@@ -18,6 +19,12 @@ defmodule Majudge.SleepRDS.StartDB do
       service: :rds
     }
 
-    ExAws.request(operation)
+    case ExAws.request(operation) do
+      {:ok, _} ->
+        Logger.info("Started AWS RDS")
+
+      {:error, {_err_name, _err_code, resp}} ->
+        Logger.error(resp.body)
+    end
   end
 end

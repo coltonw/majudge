@@ -4,6 +4,7 @@
 # then we need a plug that sends a message to the last activity to tell it that there has been more activity
 # and then a channel which tells the site when postgres is up
 defmodule Majudge.SleepRDS do
+  require Logger
   alias Majudge.SleepRDS.StartDB
   alias Majudge.SleepRDS.StopDB
 
@@ -11,6 +12,7 @@ defmodule Majudge.SleepRDS do
   Starts a task which starts the db instance.
   """
   def start_db() do
+    Logger.info("Starting DB")
     DynamicSupervisor.start_child(Majudge.SleepRDSSupervisor, StartDB)
     DynamicSupervisor.start_child(Majudge.SleepRDSSupervisor, Majudge.Repo)
   end
@@ -19,6 +21,7 @@ defmodule Majudge.SleepRDS do
   Starts a task which stops the db instance.
   """
   def stop_db() do
+    Logger.info("Stopping DB")
     pid = Process.whereis(Majudge.Repo)
 
     if pid, do: DynamicSupervisor.terminate_child(Majudge.SleepRDSSupervisor, pid)
