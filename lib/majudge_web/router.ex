@@ -7,6 +7,9 @@ defmodule MajudgeWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+  end
+
+  pipeline :keep_alive do
     plug Majudge.SleepRDS.KeepAlivePlug
   end
 
@@ -23,6 +26,11 @@ defmodule MajudgeWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+  end
+
+  scope "/", MajudgeWeb do
+    pipe_through [:browser, :keep_alive]
+
     get "/tally", TallyController, :index
 
     resources "/ballots", BallotController

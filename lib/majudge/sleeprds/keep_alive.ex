@@ -21,13 +21,13 @@ defmodule Majudge.SleepRDS.KeepAlive do
 
   @impl true
   def handle_info(:check_date, last_ping) do
-    # 3,600 seconds AKA 1 hour
-    if DateTime.diff(DateTime.utc_now(), last_ping) > 3_600 do
+    # 2,400 seconds AKA 40 minutes
+    if DateTime.diff(DateTime.utc_now(), last_ping) > 2_400 do
       SleepRDS.stop_db()
     end
 
-    # 600,000 millis AKA 10 minutes
-    Process.send_after(Majudge.SleepRDS.KeepAlive, :check_date, 600_000)
+    # 60,000 millis AKA 1 minute
+    Process.send_after(Majudge.SleepRDS.KeepAlive, :check_date, 60_000)
     {:noreply, last_ping}
   end
 

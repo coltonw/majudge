@@ -11,6 +11,10 @@
   <div class="container">
     <div class="columns">
       <div class="column is-three-quarters">
+        <div class="notification is-warning">
+          <button class="delete"></button>
+          For cost savings, the database is shut down after 20 minutes of inactivity. Please go to any sub page and then wait 10 minutes for the database to come back up.
+        </div>
         <p class="subtitle">Vote on the latest ballot!</p>
         <a class="button is-large is-primary" href="<%= Routes.vote_path(@conn, :new) %>">
           <span class="icon is-medium">
