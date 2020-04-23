@@ -7,20 +7,17 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = (env, options) => ({
   optimization: {
-    minimizer: [
-      new TerserPlugin({ cache: true, parallel: true, sourceMap: true }),
-      new OptimizeCSSAssetsPlugin({})
-    ]
+    minimizer: [new TerserPlugin({}), new OptimizeCSSAssetsPlugin({})],
   },
   entry: {
     app: glob.sync("./vendor/**/*.js").concat(["./js/app.js"]),
     tally: glob.sync("./vendor/**/*.js").concat(["./js/tally/index.js"]),
     ballot: glob.sync("./vendor/**/*.js").concat(["./js/ballot/index.js"]),
-    vote: glob.sync("./vendor/**/*.js").concat(["./js/vote/index.js"])
+    vote: glob.sync("./vendor/**/*.js").concat(["./js/vote/index.js"]),
   },
   output: {
     filename: "[name].js",
-    path: path.resolve(__dirname, "../priv/static/js")
+    path: path.resolve(__dirname, "../priv/static/js"),
   },
   devtool: "source-map",
   module: {
@@ -29,12 +26,12 @@ module.exports = (env, options) => ({
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader"
-        }
+          loader: "babel-loader",
+        },
       },
       {
         test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
       },
       {
         test: /\.(?:svg|eot|ttf|woff|woff2)$/,
@@ -42,15 +39,15 @@ module.exports = (env, options) => ({
           {
             loader: "file-loader",
             options: {
-              outputPath: "../css"
-            }
-          }
-        ]
-      }
-    ]
+              outputPath: "../css",
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new MiniCssExtractPlugin({ filename: "../css/app.css" }),
-    new CopyWebpackPlugin([{ from: "static/", to: "../" }])
-  ]
+    new CopyWebpackPlugin([{ from: "static/", to: "../" }]),
+  ],
 });
